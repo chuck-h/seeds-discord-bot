@@ -6,17 +6,16 @@ module.exports.run = async (bot, message, args) => {
     .setDescription(`
         I'm GratzBot, and I can aid you to interact with SEEDS Gratitude in many ways!
         
-        * To pay someone with Seeds: \`\!pay <@User> <value> [memo]\`.
-        * To check your token balances: \`\!balance [@User]\`.
+        * To pay someone in Seeds tokens : \`\!pay <@User> <value> [memo]\`.
+        * To check your (or someone's) token balances: \`\!balance [@User]\`.
         * To acknowledge gratitude tokens to someone: \`\!acknowledge <@User> [memo]\`.
-        * Set someone's Seeds account: \`\!seedsacct [@User] <seedsacct>\`.
+        * Set your (or someone's) Seeds account: \`\!seedsacct [@User] <seedsacct>\`.
         * I can also show current gratitude round stats: \`\!grstats\`.
         
         Welcome to the SEEDS ecosystem!`)
     .setColor("GREEN")
     .setTimestamp(message.createdAt, true)
     .setFooter("GratzBot || 2021 JulioHolon");
-  
   
   message.channel.send(serverembed);
 };

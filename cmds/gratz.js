@@ -68,6 +68,9 @@ module.exports.run = async (bot, message, args) => {
   embed.setTitle("Click to authorize from mobile");
   var link = "https://eosio.to/" + res.esr.slice(6);
   embed.setURL(link);
+
+  //message.channel.send(`${sender} gives ${quantity} GRATZ to ${recipient}(${account}) for "${memo}"`)
+  bot.channels.get(process.env.GRATITUDE_CHANNEL_ID).send(`${sender} gives ${quantity} GRATZ to ${recipient}(${account}) for "${memo}"`)
   
   message.author.send(embed);
 };
