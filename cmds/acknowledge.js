@@ -68,10 +68,9 @@ module.exports.run = async (bot, message, args) => {
   embed.setURL(link);
 
   //const channel = message.guild.channels.find(ch => ch.name === 'gratitude');
-  message.channel.send(`${sender} acknowledges ${recipient}(${account}) for ${memo}`)
-  
+  //message.channel.send(`${sender} acknowledges ${recipient}(${account}) for "${memo}"`)
+  bot.channels.get(process.env.GRATITUDE_CHANNEL_ID).send(`${sender} acknowledges ${recipient}(${account}) for "${memo}"`)
   message.author.send(embed);
-          
 };
 
 module.exports.help = {

@@ -10,19 +10,30 @@ module.exports.run = async (bot, message, args) => {
     message.channel.send(helpembxd);
     return;
   }
-  let sender = message.author;
-  let target = args.length>2 ? message.mentions.users.first() : sender;
-  var account = args.length>2 ? args[2] : args[1]
   
+  var target
+  var account
+  
+  if (args.length == 3) { // set someone´s account
+    target = message.mentions.users.first();
+    account = args[2]
+  } else { // set my account
+    target = message.author;
+    account = args[1]
+  }
+    
   if (account == "null") {
     db.delete(`seedsacct-${target.id}`)
-    message.channel.send(`${target} account removed.`);
+    bot.channels.get(process.env.GRATITUDE_CHANNEL_ID).send(`${target} account unset.`)
+    message.channel.send(`${target} account unset.`);
+    target.send("Your account has been unset.")
     return
   }
   
   db.set(`seedsacct-${target.id}`, account)
-  
-  message.channel.send(`${target} account is now ${account}`);
+  bot.channels.get(process.env.GRATITUDE_CHANNEL_ID).send(`${target} account is now "${account}"`)
+  message.channel.send(`${target} account is now "${account}"`)
+  target.send(`Your account is now set as: "${account}"`)
 };
 
 module.exports.help = {

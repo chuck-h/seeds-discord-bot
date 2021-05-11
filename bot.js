@@ -71,7 +71,7 @@ String.prototype.capitalize = function(allWords) {
 
 /* ============================================================================================================================================================== */
 
-const guild = bot.guilds.get("722537361480613950");
+const guild = bot.guilds.get(process.env.GUILD_ID);
 
 bot.on("message", message => {
   const prefix = bot.prefix;
@@ -89,14 +89,13 @@ bot.on("message", message => {
 /* ============================================================================================================================================================== */
 
 bot.on("ready", () => {
-  bot.guild = bot.guilds.get("722537361480613950");
+  bot.guild = bot.guilds.get(process.env.GUILD_ID);
   let readyembed = new Discord.RichEmbed()
     .setTitle("Bot Refresh!")
     .setColor(`RANDOM`)
     .setFooter("Bot", bot.user.displayAvatarURL)
     .setTimestamp();
-  bot.channels.get("DISCORD_TEXT_CHANNEL_ID")
-  const guild = bot.guilds.get("722537361480613950");
+  const guild = bot.guilds.get(process.env.GUILD_ID);
   bot.user.setActivity("Working", {
     type: "WATCHING"
   });
