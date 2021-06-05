@@ -6,10 +6,11 @@ module.exports.run = async (bot, message, args) => {
     .setDescription(`
         I'm GratzBot, and I can aid you to interact with SEEDS Gratitude in many ways!
         
+        * To check current Seeds price : \`\!price\`.
         * To pay someone in Seeds tokens : \`\!pay <@User> <value> [memo]\`.
-        * To check your (or someone's) token balances: \`\!balance [@User]\`.
-        * To acknowledge gratitude tokens to someone: \`\!acknowledge <@User> [memo]\`.
-        * Set your (or someone's) Seeds account: \`\!seedsacct [@User] <seedsacct>\`.
+        * To check your (or someone's) token balances: \`\!balance [@User]\`. (Aliases: !bal)
+        * To acknowledge gratitude tokens to someone: \`\!acknowledge <@User> [memo]\`. (Aliases: !ack)
+        * Set or check your (or someone's) Seeds account: \`\!seedsacct [@User] [seedsacct]\`.
         * I can also show current gratitude round stats: \`\!grstats\`.
         
         Welcome to the SEEDS ecosystem!`)

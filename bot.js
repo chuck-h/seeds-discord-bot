@@ -34,6 +34,7 @@ function emoji(id) {
 /* ============================================================================================================================================================== */
 
 bot.commands = new Discord.Collection();
+bot.aliases = new Discord.Collection();
 
 fs.readdir("./cmds/", (err, files) => {
   if (err) throw err;
@@ -43,6 +44,12 @@ fs.readdir("./cmds/", (err, files) => {
   jsFiles.forEach(f => {
     let props = require(`./cmds/${f}`);
     bot.commands.set(props.help.name, props);
+    if (props.help.aliases) {
+      props.help.aliases.forEach(alias => {
+          bot.aliases.set(alias, props.help.name);
+      });      
+    }
+
   });
   console.log(`Loaded ${jsFiles.length} commands.`);
   bot.commandNum = jsFiles.length;
@@ -76,14 +83,18 @@ const guild = bot.guilds.get(process.env.GUILD_ID);
 bot.on("message", message => {
   const prefix = bot.prefix;
   if (message.author.bot) return;
-  if (message.content.startsWith(prefix)) {
-    let args = message.content
+  if (message.content.indexOf(config.prefix) !== 0) return;
+
+  let args = message.content
       .substring(prefix.length)
       .trim()
       .split(/ +/g);
-    let cmd = bot.commands.get(args[0].toLowerCase());
-    if (cmd) cmd.run(bot, message, args);
-  }
+  let cmdstr = args[0].toLowerCase();
+  let cmd = bot.commands.get(cmdstr);
+  if (bot.aliases.has(cmdstr)) cmd = bot.commands.get(bot.aliases.get(cmdstr))
+
+  if (cmd) cmd.run(bot, message, args);
+
 });
 
 /* ============================================================================================================================================================== */

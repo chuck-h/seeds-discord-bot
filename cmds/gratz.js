@@ -12,8 +12,11 @@ module.exports.run = async (bot, message, args) => {
   } 
   let sender = message.author;
   var recipient = args[1];
-  var quantity = args[2];  
-  var memo = args.lenght > 3 ? args.slice(3).join(" ") : "";
+  var quantity = args[2];
+  var memo = ""
+  if (args.length > 3) {
+    memo =  args.slice(3).join(" ");
+  }
 
   var user = message.mentions.users.first()
   var account = null
@@ -69,8 +72,11 @@ module.exports.run = async (bot, message, args) => {
   var link = "https://eosio.to/" + res.esr.slice(6);
   embed.setURL(link);
 
-  //message.channel.send(`${sender} gives ${quantity} GRATZ to ${recipient}(${account}) for "${memo}"`)
-  bot.channels.get(process.env.GRATITUDE_CHANNEL_ID).send(`${sender} gives ${quantity} GRATZ to ${recipient}(${account}) for "${memo}"`)
+  const gratch = message.guild.channels.find(ch => ch.name.endsWith('gratitude'));
+  gratch.send(`${sender} gives ${quantity} GRATZ to ${recipient}(${account}) for "${memo}"`)
+  if (message.channel != gratch) {
+      message.channel.send(`${sender} gives ${quantity} GRATZ to ${recipient}(${account}) for "${memo}"`)
+  }
   
   message.author.send(embed);
 };
