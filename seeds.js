@@ -51,10 +51,24 @@ const getReceivedGratitude = async account => {
   return res
 }
 
+const getCurrentSEEDSPrice = async () => {
+  const priceTable = await rpc.get_table_rows({
+    code: 'tlosto.seeds',
+    scope: 'tlosto.seeds',
+    table: 'price',
+    json: true
+  })
+  if (priceTable.rows) {
+    return priceTable.rows[priceTable.rows.length-1];
+  }
+  return [];
+}
+
+
 const getBalance = async (account) => {
   const balance = await rpc.get_currency_balance('token.seeds', account, 'SEEDS')
   return Number.parseInt(balance[0])
 }
 
 
-module.exports = { getReceivedGratitude, getRemainingGratitude, getBalance, getGratitudeStats }
+module.exports = { getReceivedGratitude, getRemainingGratitude, getBalance, getGratitudeStats, getCurrentSEEDSPrice }

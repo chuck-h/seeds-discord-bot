@@ -68,5 +68,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
   name: "balance",
-  description: "Get user token balances"
+  description: "Get user token balances",
+  aliases: ["bal"]
 };
