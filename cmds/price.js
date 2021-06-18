@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
   if(args[1] == "help"){
-    let helpembxd = new Discord.RichEmbed()
+    let helpembxd = new Discord.MessageEmbed()
     .setColor("#00ff00")
     .addField("price", "Usage: price")
 
@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args) => {
     getCurrentSEEDSPrice
   } = require("../seeds");
   
-  const embed = new Discord.RichEmbed();
+  const embed = new Discord.MessageEmbed();
   Promise.all([
     getCurrentSEEDSPrice(),
   ]).then(([prices]) => {

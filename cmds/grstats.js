@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 module.exports.run = async (bot, message, args) => {
   const { getBalance, getGratitudeStats } = require("../seeds");
 
-  const embed = new Discord.RichEmbed();
+  const embed = new Discord.MessageEmbed();
   Promise.all([getBalance("gratz.seeds"), getGratitudeStats()]).then(
     ([bal, stats]) => {
       embed.addField("Current round", stats.round_id);

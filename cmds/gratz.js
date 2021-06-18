@@ -3,7 +3,7 @@ const db = require("quick.db");
 
 module.exports.run = async (bot, message, args) => {
   if(args[1] == "help" || args.length < 3){
-    let helpembxd = new Discord.RichEmbed()
+    let helpembxd = new Discord.MessageEmbed()
     .setColor("#00ff00")
     .addField("Acknowledge", "Usage: !gratz <@user> <quantity> <message>")
 
@@ -60,7 +60,7 @@ module.exports.run = async (bot, message, args) => {
   });
   res = JSON.parse(res.getBody("utf8"));
 
-  const embed = new Discord.RichEmbed();
+  const embed = new Discord.MessageEmbed();
   embed.addField(
     `Gifting ${quantity} GRATZ to ${account}.`,
     "Scan using your SEEDS Wallet"

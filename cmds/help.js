@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
-  var serverembed = new Discord.RichEmbed()
+  var serverembed = new Discord.MessageEmbed()
     .setTitle("Help Center")
     .setDescription(`
         I'm GratzBot, and I can aid you to interact with SEEDS Gratitude in many ways!

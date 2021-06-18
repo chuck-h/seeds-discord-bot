@@ -3,7 +3,7 @@ const db = require("quick.db");
 
 module.exports.run = async (bot, message, args) => {
   if(args[1] == "help"){
-    let helpembxd = new Discord.RichEmbed()
+    let helpembxd = new Discord.MessageEmbed()
     .setColor("#00ff00")
     .addField("balance", "Usage: balance [user]")
 
@@ -37,7 +37,7 @@ module.exports.run = async (bot, message, args) => {
     getBalance
   } = require("../seeds");
 
-  const embed = new Discord.RichEmbed();
+  const embed = new Discord.MessageEmbed();
   //https://github.com/cc32d9/eosio_light_api
   var res = request(
     "GET",
