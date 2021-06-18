@@ -3,7 +3,7 @@ const db = require("quick.db");
 
 module.exports.run = async (bot, message, args) => {
   if(args[1] == "help" || args.length < 3){
-    let helpembxd = new Discord.RichEmbed()
+    let helpembxd = new Discord.MessageEmbed()
     .setColor("#00ff00")
     .addField("Acknowledge", "Usage: !acknowledge <@user> <message>")
 
@@ -54,7 +54,7 @@ module.exports.run = async (bot, message, args) => {
   });
   res = JSON.parse(res.getBody("utf8"));
 
-  const embed = new Discord.RichEmbed();
+  const embed = new Discord.MessageEmbed();
   var msg = memo ? `Acknowledging gratitude to ${account} for ${memo}` : `Acknowledging gratitude to ${account}`
   embed.addField(
     msg,
@@ -67,9 +67,10 @@ module.exports.run = async (bot, message, args) => {
   var link = "https://eosio.to/" + res.esr.slice(6);
   embed.setURL(link);
 
-  const gratch = message.guild.channels.find(ch => ch.name.endsWith('gratitude'));
-  gratch.send(`${sender} acknowledges ${recipient}(${account}) for "${memo}"`)
-  if (message.channel != gratch) {
+  const gratz_channel = message.guild.channels.cache.find(ch => ch.name.endsWith(process.env.GRATITUDE_CHANNEL_ID));
+  
+  if (gratz_channel) gratz_channel.send(`${sender} acknowledges ${recipient}(${account}) for "${memo}"`)
+  if (message.channel != gratz_channel) {
       message.channel.send(`${sender} acknowledges ${recipient}(${account}) for "${memo}"`)
   }
   message.author.send(embed);

@@ -30,6 +30,8 @@ module.exports.run = async (bot, message, args) => {
       account = args[1]      
     }
   }
+  
+  const gratz_channel = message.guild.channels.cache.find(ch => ch.name.startsWith(process.env.GRATITUDE_CHANNEL_ID));
 
   if (args.length == 3) { // set someone´s account
     target = message.mentions.users.first();
@@ -38,15 +40,15 @@ module.exports.run = async (bot, message, args) => {
     
   if (account == "null") {
     db.delete(`seedsacct-${target.id}`)
-    bot.channels.get(process.env.GRATITUDE_CHANNEL_ID).send(`${target} account unset.`)
+    if (gratz_channel) gratz_channel.send(`${target} account unset.`)
     message.channel.send(`${target} account unset.`);
     target.send("Your account has been unset.")
     return
   }
   
   db.set(`seedsacct-${target.id}`, account)
-  bot.channels.get(process.env.GRATITUDE_CHANNEL_ID).send(`${target} account is now "${account}"`)
-  //message.channel.send(`${target} account is now "${account}"`)
+  if (gratz_channel) gratz_channel.send(`${target} account is now "${account}"`)
+  message.channel.send(`${target} account is now "${account}"`)
   target.send(`Your account is now set as: "${account}"`)
 };
 

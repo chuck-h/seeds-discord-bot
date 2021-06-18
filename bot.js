@@ -14,7 +14,7 @@ setInterval(() => {
 
 /* ============================================================================================================================================================== */
 
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 const bot = new Discord.Client();
 const fs = require("fs");
 const db = require("quick.db");
@@ -78,9 +78,8 @@ String.prototype.capitalize = function(allWords) {
 
 /* ============================================================================================================================================================== */
 
-const guild = bot.guilds.get(process.env.GUILD_ID);
-
 bot.on("message", message => {
+  bot.guild = message.guild;
   const prefix = bot.prefix;
   if (message.author.bot) return;
   if (message.content.indexOf(config.prefix) !== 0) return;
@@ -100,13 +99,11 @@ bot.on("message", message => {
 /* ============================================================================================================================================================== */
 
 bot.on("ready", () => {
-  bot.guild = bot.guilds.get(process.env.GUILD_ID);
-  let readyembed = new Discord.RichEmbed()
+  let readyembed = new Discord.MessageEmbed()
     .setTitle("Bot Refresh!")
     .setColor(`RANDOM`)
     .setFooter("Bot", bot.user.displayAvatarURL)
     .setTimestamp();
-  const guild = bot.guilds.get(process.env.GUILD_ID);
   bot.user.setActivity("Working", {
     type: "WATCHING"
   });
