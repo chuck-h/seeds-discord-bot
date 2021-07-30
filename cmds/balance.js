@@ -34,7 +34,8 @@ module.exports.run = async (bot, message, args) => {
   const {
     getReceivedGratitude,
     getRemainingGratitude,
-    getBalance
+    getBalance,
+    getAcks
   } = require("../seeds");
 
   const embed = new Discord.MessageEmbed();
@@ -51,13 +52,15 @@ module.exports.run = async (bot, message, args) => {
   res = JSON.parse(res.getBody("utf8"));
   Promise.all([
     getRemainingGratitude(account),
-    getReceivedGratitude(account)
-  ]).then(([remaining, received]) => {
+    getReceivedGratitude(account),
+    getAcks(account)
+  ]).then(([remaining, received, acks]) => {
     for (var i = 0; i < res.balances.length; i++) {
       embed.addField(res.balances[i].currency, res.balances[i].amount);
     }
     embed.addField("Gratitude to give", remaining);
     embed.addField("Gratitude received", received);
+    embed.addField("Acks given", acks);
     embed.setColor("GREEN");
     embed.setAuthor("Token Balances");
     embed.setTitle(`Balances for ${account}`);
