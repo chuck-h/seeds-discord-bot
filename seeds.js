@@ -12,7 +12,7 @@ const getGratitudeStats = async () => {
   const statsTable = await rpc.get_table_rows({
     code: 'gratz.seeds',
     scope: 'gratz.seeds',
-    table: 'stats',
+    table: 'stats2',
     json: true
   })
   if (statsTable.rows) {
@@ -70,5 +70,23 @@ const getBalance = async (account) => {
   return Number.parseInt(balance[0])
 }
 
+const getAcks = async (account) => {
+  const acksTable = await rpc.get_table_rows({
+    code: 'gratz.seeds',
+    scope: 'gratz.seeds',
+    table: 'acks',
+    lower_bound: account,
+    json: true
+  })
+  if (acksTable.rows) {
+    var acks =  acksTable.rows.reduce(function(map, obj) {
+      map[obj.donor] = obj.receivers;
+      return map;
+    }, {})
+    return acks[account]
+  }
+  return ['none'];
+}
 
-module.exports = { getReceivedGratitude, getRemainingGratitude, getBalance, getGratitudeStats, getCurrentSEEDSPrice }
+
+module.exports = { getReceivedGratitude, getRemainingGratitude, getBalance, getGratitudeStats, getCurrentSEEDSPrice, getAcks }

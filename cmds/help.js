@@ -8,6 +8,7 @@ module.exports.run = async (bot, message, args) => {
         
         * To check current Seeds price : \`\!price\`.
         * To pay someone in Seeds tokens : \`\!pay <@User> <value> [memo]\`.
+        * To donate Seeds to the global Gratitude Pot : \`\!donate <value>\`.
         * To check your (or someone's) token balances: \`\!balance [@User]\`. (Aliases: !bal)
         * To acknowledge gratitude tokens to someone: \`\!acknowledge <@User> [memo]\`. (Aliases: !ack)
         * Set or check your (or someone's) Seeds account: \`\!seedsacct [@User] [seedsacct]\`.

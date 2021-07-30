@@ -19,9 +19,10 @@ module.exports.run = async (bot, message, args) => {
     getCurrentSEEDSPrice(),
   ]).then(([prices]) => {
     embed.addField("SEEDS price per USD", prices.current_seeds_per_usd);
+    embed.addField("SEEDS price in USD", (1/parseFloat(prices.current_seeds_per_usd)).toFixed(4));
     embed.addField("Remaining on sales round", prices.remaining / 10000);
     embed.setColor("GREEN");
-    embed.setAuthor("SEEDS Price");
+    embed.setAuthor("Hypha Sale SEEDS Price");
     message.channel.send(embed);
   });    
   

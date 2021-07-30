@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) => {
   let sender = message.user;
   var recipient = args[1];
   var quantity = args[2];  
-  var memo = args.lenght > 3 ? args.slice(3).join(" ") : "gratzbot payment";
+  var memo = args.length > 3 ? args.slice(3).join(" ") : "gratzbot payment";
 
   var user = message.mentions.users.first()
   var account = null
