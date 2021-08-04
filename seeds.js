@@ -88,5 +88,68 @@ const getAcks = async (account) => {
   return ['none'];
 }
 
+const getAccount = async (account) => {
+  const accountsTable = await rpc.get_table_rows({
+    code: 'accts.seeds',
+    scope: 'accts.seeds',
+    table: 'users',
+    lower_bound: account,
+    upper_bound: account,
+    json: true
+  })
+  if (accountsTable.rows) {
+    return accountsTable.rows[accountsTable.rows.length-1];
+  }
+  return null;
+}
 
-module.exports = { getReceivedGratitude, getRemainingGratitude, getBalance, getGratitudeStats, getCurrentSEEDSPrice, getAcks }
+const getCurrentProposals = async () => {
+  const cycleTable = await rpc.get_table_rows({
+    code: 'funds.seeds',
+    scope: 'funds.seeds',
+    table: 'cyclestats',
+    limit: 100,
+    json: true
+  })
+  if (cycleTable.rows) {
+    var last_cycle = cycleTable.rows[cycleTable.rows.length-1]
+
+    const propsTable = await rpc.get_table_rows({
+      code: 'funds.seeds',
+      scope: 'funds.seeds',
+      table: 'props',
+      lower_bound: last_cycle.active_props[0],
+      upper_bound: last_cycle.active_props[last_cycle.active_props.length-1],
+      json: true
+    })
+    if (propsTable.rows) {
+      return propsTable.rows;
+    } else return [];
+  } else return [];
+}
+
+const getCurrentSupport = async () => {
+  const allianceSupportTable = await rpc.get_table_rows({
+    code: 'funds.seeds',
+    scope: "alliance",
+    table: 'support',
+    json: true
+  })
+  const campaignSupportTable = await rpc.get_table_rows({
+    code: 'funds.seeds',
+    scope: "campaign",
+    table: 'support',
+    json: true
+  })
+  if (allianceSupportTable.rows && campaignSupportTable.rows) {
+    const cycle = allianceSupportTable.rows[allianceSupportTable.rows.length-1].propcycle
+    const alliance_needed = allianceSupportTable.rows[allianceSupportTable.rows.length-1].voice_needed
+    const campaign_needed = campaignSupportTable.rows[campaignSupportTable.rows.length-1].voice_needed
+    return {"cycle":cycle, "alliances":alliance_needed, "campaigns":campaign_needed};
+  }
+  return [];
+}
+
+
+
+module.exports = { getReceivedGratitude, getRemainingGratitude, getBalance, getGratitudeStats, getCurrentSEEDSPrice, getAcks, getAccount, getCurrentProposals, getCurrentSupport }

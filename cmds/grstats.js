@@ -9,6 +9,7 @@ module.exports.run = async (bot, message, args) => {
       embed.addField("Current round", stats.round_id);
       embed.addField("SEEDS on round", bal);
       embed.addField("Number of gratitude transactions", stats.num_transfers);
+      embed.addField("Number of acknowledges", stats.num_acks);
       embed.addField("Gratitude volume", stats.volume);
       embed.setColor("GREEN");
       embed.setAuthor("Gratitude round stats");
