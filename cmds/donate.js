@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args) => {
     message.channel.send(helpembxd);
     return;
   } 
-  let sender = message.user;
+  let sender = message.author;
   var recipient = "gratz.seeds";
   var quantity = args[1];  
   var memo = "Gratitude global pot donation";
@@ -45,7 +45,6 @@ module.exports.run = async (bot, message, args) => {
   if (message.channel != gratz_channel) {
       message.channel.send(`${sender} donates ${quantity} to the Global Gratitude Pot!!`)
   }
-
   
   message.author.send(embed);
 };

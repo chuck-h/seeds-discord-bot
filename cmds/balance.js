@@ -60,7 +60,7 @@ module.exports.run = async (bot, message, args) => {
     }
     embed.addField("Gratitude to give", remaining);
     embed.addField("Gratitude received", received);
-    embed.addField("Acks given", acks);
+    embed.addField("Acks given", acks.length);
     embed.setColor("GREEN");
     embed.setAuthor("Token Balances");
     embed.setTitle(`Balances for ${account}`);

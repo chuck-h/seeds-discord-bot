@@ -31,7 +31,7 @@ module.exports.run = async (bot, message, args) => {
     }
   }
   
-  const gratz_channel = message.guild.channels.cache.find(ch => ch.name.startsWith(process.env.GRATITUDE_CHANNEL_ID));
+  const gratz_channel = message.guild ? message.guild.channels.cache.find(ch => ch.name.startsWith(process.env.GRATITUDE_CHANNEL_ID)) : null;
 
   if (args.length == 3) { // set someone´s account
     target = message.mentions.users.first();
@@ -45,11 +45,24 @@ module.exports.run = async (bot, message, args) => {
     target.send("Your account has been unset.")
     return
   }
-  
-  db.set(`seedsacct-${target.id}`, account)
-  if (gratz_channel) gratz_channel.send(`${target} account is now "${account}"`)
-  message.channel.send(`${target} account is now "${account}"`)
-  target.send(`Your account is now set as: "${account}"`)
+
+  const {
+    getAccount
+  } = require("../seeds");
+
+  Promise.all([
+    getAccount(account)
+  ]).then(([res]) => {
+    if (res) {
+      db.set(`seedsacct-${target.id}`, account)
+      if (gratz_channel) gratz_channel.send(`${target} account is now "${account}"`)
+      else if (message.channel) message.channel.send(`${target} account is now "${account}"`)
+      target.send(`Your account is now set as: "${account}"`)      
+    } else {
+      message.channel.send(`"${account}" is invalid or doesn't exist in SEEDS.`)
+    }
+  })
+  .catch(error => message.channel.send(`Error parsing account, please use lower caps and numbers between 1-5.`));
 };
 
 module.exports.help = {
