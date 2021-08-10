@@ -79,5 +79,5 @@ module.exports.run = async (bot, message, args) => {
 module.exports.help = {
   name: "acknowledge",
   description: "Acknowledge user for Gratitude Tokens",
-  aliases: ["ack"]
+  aliases: ["ack", "thanks"]
 };
