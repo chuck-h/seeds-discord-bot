@@ -150,6 +150,16 @@ const getCurrentSupport = async () => {
   return [];
 }
 
+const getMemosList = async () => {
+  const memos = await rpc.history_get_actions({
+    accountName: 'gratz.seeds',
+    pos: 10000,
+    offset: 100,
+  })
+  console.log(memos)
+  return [];
+}
 
 
-module.exports = { getReceivedGratitude, getRemainingGratitude, getBalance, getGratitudeStats, getCurrentSEEDSPrice, getAcks, getAccount, getCurrentProposals, getCurrentSupport }
+
+module.exports = { getReceivedGratitude, getRemainingGratitude, getBalance, getGratitudeStats, getCurrentSEEDSPrice, getAcks, getAccount, getCurrentProposals, getCurrentSupport, getMemosList }
