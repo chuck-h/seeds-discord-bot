@@ -67,7 +67,7 @@ module.exports.run = async (bot, message, args) => {
   var link = "https://eosio.to/" + res.esr.slice(6);
   embed.setURL(link);
 
-  const gratz_channel = message.guild.channels.cache.find(ch => ch.name.endsWith(process.env.GRATITUDE_CHANNEL_ID));
+  const gratz_channel = message.guild ? message.guild.channels.cache.find(ch => ch.name.startsWith(process.env.GRATITUDE_CHANNEL_ID)) : null;
   
   if (gratz_channel) gratz_channel.send(`${sender} acknowledges ${recipient}(${account}) for "${memo}"`)
   if (message.channel != gratz_channel) {
