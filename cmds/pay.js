@@ -48,8 +48,8 @@ module.exports.run = async (bot, message, args) => {
   );
   embed.setColor("GREEN");
   embed.setImage(res.qr);
-  embed.setAuthor("Authorize Payment");
-  embed.setTitle("Click to authorize from mobile");
+  embed.setAuthor("Scan to authorize Payment");
+  embed.setTitle("Or click here to open on wallet");
   var link = "https://eosio.to/" + res.esr.slice(6);
   embed.setURL(link);
     
