@@ -26,6 +26,8 @@ const getRemainingGratitude = async account => {
     code: 'gratz.seeds',
     scope: 'gratz.seeds',
     table: 'balances',
+    lower_bound: account,
+    upper_bound: account,
     json: true
   })
   const balance = balanceTable.rows.filter(r => r.account == account)
@@ -41,6 +43,8 @@ const getReceivedGratitude = async account => {
     code: 'gratz.seeds',
     scope: 'gratz.seeds',
     table: 'balances',
+    lower_bound: account,
+    upper_bound: account,
     json: true
   })
   const balance = balanceTable.rows.filter(r => r.account == account)
