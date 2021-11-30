@@ -26,6 +26,8 @@ const getRemainingGratitude = async account => {
     code: 'gratz.seeds',
     scope: 'gratz.seeds',
     table: 'balances',
+    lower_bound: account,
+    upper_bound: account,
     json: true
   })
   const balance = balanceTable.rows.filter(r => r.account == account)
@@ -41,6 +43,8 @@ const getReceivedGratitude = async account => {
     code: 'gratz.seeds',
     scope: 'gratz.seeds',
     table: 'balances',
+    lower_bound: account,
+    upper_bound: account,
     json: true
   })
   const balance = balanceTable.rows.filter(r => r.account == account)
@@ -160,6 +164,20 @@ const getMemosList = async () => {
   return [];
 }
 
+const getGratzPotKp = async () => {
+  const cfgTable = await rpc.get_table_rows({
+    code: 'settgs.seeds',
+    scope: 'settgs.seeds',
+    table: 'config',
+    lower_bound: 'gratz.potkp',
+    upper_bound: 'gratz.potkp',
+    json: true
+  })
+  if (cfgTable.rows) {
+    return cfgTable.rows[cfgTable.rows.length-1].value;
+  }
+  return 0;
+}
 
 
-module.exports = { getReceivedGratitude, getRemainingGratitude, getBalance, getGratitudeStats, getCurrentSEEDSPrice, getAcks, getAccount, getCurrentProposals, getCurrentSupport, getMemosList }
+module.exports = { getReceivedGratitude, getRemainingGratitude, getBalance, getGratitudeStats, getCurrentSEEDSPrice, getAcks, getAccount, getCurrentProposals, getCurrentSupport, getMemosList, getGratzPotKp }

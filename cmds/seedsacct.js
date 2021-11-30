@@ -54,7 +54,7 @@ module.exports.run = async (bot, message, args) => {
     getAccount(account)
   ]).then(([res]) => {
     if (res) {
-      db.set(`seedsacct-${target.id}`, account)
+      db.set(`seedsacct-${target.id}`, account.replace(/['"]+/g, ''))
       if (gratz_channel) gratz_channel.send(`${target} account is now "${account}"`)
       else if (message.channel) message.channel.send(`${target} account is now "${account}"`)
       target.send(`Your account is now set as: "${account}"`)      

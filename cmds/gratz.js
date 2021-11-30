@@ -23,7 +23,7 @@ module.exports.run = async (bot, message, args) => {
   if (user) {
     account = await db.fetch(`seedsacct-${user.id}`)
     if (!account) {
-      message.channel.send(`Account for ${user} is missing! Please setup using the *seedsacct* command.`)
+      message.channel.send(`Account for ${user} is missing! Please setup using the *!seedsacct* command.`)
       return
     }
   } else {
