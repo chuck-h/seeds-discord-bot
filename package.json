@@ -32,7 +32,8 @@
     "eosjs": "^21.0.4",
     "node-fetch": "^2.6.1",
     "@discordjs/opus": "^0.5.3",
-    "v11-discord.js": "^11.5.8"
+    "v11-discord.js": "^11.5.8",
+    "dotenv": "^14.0.0"
   },
   "engines": {
     "node": "12.x"
