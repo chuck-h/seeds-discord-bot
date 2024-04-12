@@ -22,7 +22,7 @@ module.exports.run = async (bot, message, args) => {
       if (account) {
         message.channel.send(`${target} account is "${account}".`)
       } else {
-        message.channel.send("${target} account is not defined.")
+        message.channel.send(`${target} account is not defined.`)
       }
       return;
     } else { // setting your own account !seedsacct <someaccount>
@@ -54,6 +54,7 @@ module.exports.run = async (bot, message, args) => {
     getAccount(account)
   ]).then(([res]) => {
     if (res) {
+      console.log(res)
       db.set(`seedsacct-${target.id}`, account.replace(/['"]+/g, ''))
       if (gratz_channel) gratz_channel.send(`${target} account is now "${account}"`)
       else if (message.channel) message.channel.send(`${target} account is now "${account}"`)
@@ -62,7 +63,7 @@ module.exports.run = async (bot, message, args) => {
       message.channel.send(`"${account}" is invalid or doesn't exist in SEEDS.`)
     }
   })
-  .catch(error => message.channel.send(`Error parsing account, please use lower caps and numbers between 1-5.`));
+  .catch(error => message.channel.send(`Error parsing account, please use lower caps and numbers between 1-5. ${error}`));
 };
 
 module.exports.help = {
