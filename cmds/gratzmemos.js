@@ -5,22 +5,24 @@ module.exports.run = async (bot, message, args) => {
   if(args[1] == "help"){
     let helpembxd = new Discord.MessageEmbed()
     .setColor("#00ff00")
-    .addField("help", "Usage: gratzmemos")
+    .addField("help", "Usage: gratzmemos [skip] [limit]")
 
     message.channel.send(helpembxd);
     return;
   }
   
-  var size = 100
-  if (args.length == 2) {
-    size = args[1];
+  var limit = 100
+  var skip = 0
+  if (args.length >= 2) {
+    skip = args[1] || 0;
+    limit = args[2] || 100;
   }
   
   
   const request = require("sync-request");
   var res = request(
     "GET",
-    `https://telos.caleos.io/v2/history/get_actions?account=gratz.seeds&filter=gratz.seeds%3Aacknowledge&skip=0&limit=${size}&sort=desc`
+    `https://telos.caleos.io/v2/history/get_actions?account=gratz.seeds&filter=gratz.seeds%3Aacknowledge&skip=${skip}&limit=${limit}&sort=desc`
   );
   res = JSON.parse(res.getBody("utf8"));
    

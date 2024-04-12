@@ -2,7 +2,7 @@ const { JsonRpc, Api, Serialize } = require('eosjs')
 
 const fetch = require('node-fetch')
 
-const rpc = new JsonRpc('https://node.hypha.earth', {
+const rpc = new JsonRpc('https://mainnet.telos.net', {
     fetch
 })
 
