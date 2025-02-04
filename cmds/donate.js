@@ -19,7 +19,7 @@ module.exports.run = async (bot, message, args) => {
 
   var res = request(
     "GET",
-    `https://api-esr.hypha.earth/invoice?to=${recipient}&quantity=${quantity}&memo=${memo}`,
+    `https://cc42.xyz/invoice?to=${recipient}&quantity=${quantity}&memo=${memo}`,
     {
       headers: {
         "user-agent": "bot-user-agent"

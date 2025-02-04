@@ -33,7 +33,7 @@ module.exports.run = async (bot, message, args) => {
   
   const request = require("sync-request");
 
-  var res = request("POST", `https://api-esr.hypha.earth/qr`, {
+  var res = request("POST", `https://cc42.xyz/qr`, {
     headers: {
       "user-agent": "bot-user-agent"
     },
